@@ -9,14 +9,17 @@ const initialValue = {
   metascore: '',
 }
 
-const UpdateForm = props => {
+const UpdateForm = ({ movies, setMovies, history }) => {
   const [movie, setMovie] = useState(initialValue);
   const { id } = useParams();
-  console.log(props)
+  // console.log(props)
 
   useEffect(() => {
-    // const itemUpdate = props.
-  })
+    const itemToUpdate = movies.find(thing => `${thing.id}` === id);
+    if (itemToUpdate) {
+      setMovie(itemToUpdate);
+    }
+  }, [movies, id]);
 
   const handleChange = e => {
     setMovie({
@@ -25,8 +28,19 @@ const UpdateForm = props => {
     })
   }
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    axios
+      .put(`http://localhost:5000/api/movies/${id}`, movie)
+      .then(res => {
+        setMovies(res.data);
+        history.push(`/movies/${id}`);
+      })
+      .catch(err => console.log(err));
+  }
+
   return (
-    <form className='flex'>
+    <form className='flex' onSubmit={handleSubmit}>
       <h2>Update movie</h2>
       <input
         type='text'
@@ -49,7 +63,7 @@ const UpdateForm = props => {
         value={movie.metascore}
         placeholder='Metasscore'
       />
-      <button>Update</button>
+      <button type='submit'>Update</button>
     </form>
   )
 }
