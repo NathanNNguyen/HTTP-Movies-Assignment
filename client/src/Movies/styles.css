@@ -32,7 +32,7 @@
   background-color: lightseagreen;
 }
 
-.edit-button:hover {
+.delete-button:hover {
   background-color: green;
   color: white;
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import './styles.css';
 
 const initialValue = {
@@ -9,17 +9,22 @@ const initialValue = {
   metascore: '',
 }
 
-const UpdateForm = ({ movies, setMovies, history }) => {
+const UpdateForm = () => {
   const [movie, setMovie] = useState(initialValue);
   const { id } = useParams();
+  const history = useHistory();
+  
   // console.log(props)
 
   useEffect(() => {
-    const itemToUpdate = movies.find(thing => `${thing.id}` === id);
-    if (itemToUpdate) {
-      setMovie(itemToUpdate);
-    }
-  }, [movies, id]);
+    axios
+      .get(`http://localhost:5000/api/movies/${id}`)
+      .then(res =>
+        setMovie(res.data)
+        // console.log(res)
+      )
+      .catch(err => console.log(err.response));
+  }, [id]);
 
   const handleChange = e => {
     setMovie({
@@ -33,7 +38,7 @@ const UpdateForm = ({ movies, setMovies, history }) => {
     axios
       .put(`http://localhost:5000/api/movies/${id}`, movie)
       .then(res => {
-        setMovies(res.data);
+        // setMovies(res.data);
         history.push(`/movies/${id}`);
       })
       .catch(err => console.log(err));

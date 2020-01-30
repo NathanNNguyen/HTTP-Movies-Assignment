@@ -1,14 +1,15 @@
 import React from "react";
 import axios from "axios";
 import MovieCard from "./MovieCard";
+import { withRouter } from 'react-router-dom';
 import './styles.css';
-export default class Movie extends React.Component {
+class Movie extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       movie: null
     };
-    console.log(props)
+    // console.log(props)
   }
 
   componentDidMount() {
@@ -41,8 +42,7 @@ export default class Movie extends React.Component {
   handleDelete = e => {
     e.preventDefault();
     axios.delete(`http://localhost:5000/api/movies/${this.state.movie.id}`)
-      .then(res => {
-        this.props.setMovies(res.data)
+      .then(() => {
         this.props.history.push(`/`)
       })
       .catch(err => console.log(err))
@@ -69,3 +69,5 @@ export default class Movie extends React.Component {
     );
   }
 }
+
+export default withRouter(Movie)
