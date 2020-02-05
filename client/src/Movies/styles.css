@@ -1,0 +1,39 @@
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2%;
+  width: 50%;
+  margin: auto;
+}
+
+.edit-button {
+  position: absolute;
+  top: 60px;
+  margin-right: .5rem;
+  right: 20px;
+  border: 1px solid grey;
+  padding: 5px 10px;
+  background-color: lightseagreen;
+}
+
+.edit-button:hover {
+  background-color: green;
+  color: white;
+}
+
+.delete-button {
+  position: absolute;
+  top: 95px;
+  right: 20px;
+  border: 1px solid grey;
+  padding: 5px 10px;
+  background-color: lightseagreen;
+}
+
+.delete-button:hover {
+  background-color: green;
+  color: white;
+}
+

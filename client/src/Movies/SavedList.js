@@ -4,7 +4,6 @@ export default class SavedList extends Component {
   constructor(props) {
     super(props);
   }
-
   render() {
     return (
       <div className="saved-list">
